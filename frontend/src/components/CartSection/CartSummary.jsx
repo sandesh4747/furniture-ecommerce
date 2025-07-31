@@ -29,11 +29,6 @@ export default function CartSummary() {
 
   const cart = user?.cart;
 
-  // const subtotal = cart?.reduce(
-  //   (acc, item) => acc + item?.product?.price * item.quantity,
-  //   0
-  // );
-
   const subtotal = cart?.reduce((acc, item) => {
     const price = item?.product?.discount
       ? (
@@ -181,10 +176,25 @@ export default function CartSummary() {
                     {item?.quantity}
                   </div>
                   <button
-                    onClick={() =>
-                      handleUpdateCart(item._id, item.quantity + 1, "increment")
-                    }
-                    className="w-8 h-8 flex items-center justify-center border border-gray-400 rounded hover:bg-orange-200 transition-colors"
+                    onClick={() => {
+                      if (item.quantity < item?.product?.stock) {
+                        handleUpdateCart(
+                          item._id,
+                          item.quantity + 1,
+                          "increment"
+                        );
+                      } else {
+                        toast.error(
+                          `Only ${item?.product?.stock} items in stock`
+                        );
+                      }
+                    }}
+                    className={`w-8 h-8 flex items-center justify-center border border-gray-400 rounded transition-colors ${
+                      item.quantity >= item?.product?.stock
+                        ? "cursor-not-allowed bg-gray-100 text-gray-400"
+                        : "hover:bg-orange-200"
+                    }`}
+                    disabled={item.quantity >= item?.product?.stock}
                   >
                     {loadingItem?.id === item._id &&
                     loadingItem?.action === "increment" ? (
