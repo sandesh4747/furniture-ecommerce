@@ -150,6 +150,7 @@ export const orderSchema = Joi.object({
     }),
     zipCode: Joi.string().pattern(/^\d+$/).required().messages({
       "any.required": "ZIP code is required",
+      "string.empty": "ZIP code cannot be empty",
       "string.pattern.base": "ZIP code must contain only numbers",
     }),
     country: Joi.string()
@@ -161,6 +162,7 @@ export const orderSchema = Joi.object({
       }),
     phone: Joi.string().pattern(/^\d+$/).required().messages({
       "any.required": "Phone number is required",
+      "string.empty": "Phone number cannot be empty",
       "string.pattern.base": "Phone number must contain only numbers",
     }),
     province: Joi.string()
@@ -178,6 +180,7 @@ export const orderSchema = Joi.object({
     companyName: Joi.string().allow("").optional(),
     email: Joi.string().email().required().messages({
       "string.email": "Please enter a valid email address",
+      "string.empty": "Email cannot be empty",
     }),
   })
     .required()

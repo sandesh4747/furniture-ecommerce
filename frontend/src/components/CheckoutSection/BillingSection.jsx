@@ -49,7 +49,6 @@ export default function BillingSection() {
     { value: "delivered", label: "Delivered" },
   ];
 
-  console.log(cart);
   const subtotal = cart?.reduce((acc, item) => {
     const price = item?.product?.discount
       ? (
@@ -147,7 +146,7 @@ export default function BillingSection() {
         Billing details
       </h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Form Section */}
           <div className="w-full lg:w-1/2">

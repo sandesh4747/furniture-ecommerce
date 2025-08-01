@@ -37,22 +37,27 @@ const orderSchema = new mongoose.Schema(
       firstName: {
         type: String,
         required: true,
+        trim: true,
       },
       lastName: {
         type: String,
         required: true,
+        trim: true,
       },
       streetAddress: {
         type: String,
         required: true,
+        trim: true,
       },
       city: {
         type: String,
         required: true,
+        trim: true,
       },
       zipCode: {
         type: Number,
         required: true,
+        trim: true,
       },
       country: {
         type: String,
@@ -62,13 +67,16 @@ const orderSchema = new mongoose.Schema(
       phone: {
         type: Number,
         required: true,
+        trim: true,
       },
       companyName: {
         type: String,
+        trim: true,
       },
       email: {
         type: String,
         required: true,
+        trim: true,
       },
       province: {
         type: String,

@@ -103,7 +103,7 @@ export const createOrder = async (req, res) => {
     console.error("Error in createOrder controller:", error);
     res.status(500).json({
       success: false,
-      message: "Internal server error",
+
       error: error.message,
     });
   }
