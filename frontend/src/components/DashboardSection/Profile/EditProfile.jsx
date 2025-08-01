@@ -1,5 +1,5 @@
 import { Input, Option, Select } from "@material-tailwind/react";
-import { X } from "lucide-react";
+import { Loader, X } from "lucide-react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,7 +15,7 @@ export default function EditProfile({ setShowEditProfile }) {
   const [logout] = useUserLogoutMutation();
   const { user } = useSelector((state) => state.userSlice);
 
-  const [updateUser] = useUpdateProfileMutation();
+  const [updateUser, { isLoading }] = useUpdateProfileMutation();
   const [email, setEmail] = useState(user?.email || "");
   const [username, setUsername] = useState(user?.username || "");
   const [status, setStatus] = useState(user?.status || "");
@@ -118,7 +118,14 @@ export default function EditProfile({ setShowEditProfile }) {
                 type="submit"
                 className="bg-[#FFAB00] text-white py-2 px-6 rounded-lg hover:-translate-y-1 hover:scale-105 hover:shadow-lg transition-all duration-300"
               >
-                Submit
+                {isLoading ? (
+                  <div className="flex items-center gap-1">
+                    <Loader />
+                    Updating..."
+                  </div>
+                ) : (
+                  "Update"
+                )}
               </button>
             </div>
           </form>
