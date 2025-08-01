@@ -402,6 +402,11 @@ export default function OrderDetails() {
                 <Typography className="text-gray-900 font-medium">
                   {shippingAddress?.firstName} {shippingAddress?.lastName}
                 </Typography>
+                {shippingAddress?.companyName && (
+                  <Typography className="text-gray-600">
+                    {shippingAddress?.companyName}
+                  </Typography>
+                )}
                 <Typography className="text-gray-600">
                   {shippingAddress?.streetAddress}
                 </Typography>
