@@ -28,7 +28,7 @@ export default function CartSlider({ setCartSelected }) {
           (item?.product?.price * item?.product?.discount) / 100
         ).toFixed(2)
       : item?.product?.price;
-    return acc + price * item.quantity.toFixed(2);
+    return acc + price * item?.quantity?.toFixed(2);
   }, 0);
 
   const total = subtotal;
@@ -151,7 +151,7 @@ export default function CartSlider({ setCartSelected }) {
         >
           <p className="font-normal text-base">Subtotal</p>
           <p className="text-base font-semibold text-[#B88E2F]">
-            ${subtotal.toFixed(2)}
+            ${subtotal?.toFixed(2)}
           </p>
         </div>
 

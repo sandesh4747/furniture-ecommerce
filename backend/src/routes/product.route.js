@@ -19,7 +19,7 @@ import { upload } from "../middleware/upload.js";
 
 const router = express.Router();
 
-router.get("/", protectRoute, getAllProduct);
+router.get("/", getAllProduct);
 router.post("/create", upload.array("images"), protectRoute, createProduct);
 
 router.get("/latest-products", getLatestProducts);
