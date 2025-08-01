@@ -5,12 +5,13 @@ import ProductDetailsTabs from "../../components/ProductDetails/ProductDetailsTa
 import RelatedProducts from "../../components/ProductDetails/RelatedProducts";
 import { useParams } from "react-router-dom";
 import { useGetSingleProductQuery } from "../../features/product/productApi";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
   const { data, isLoading, refetch } = useGetSingleProductQuery(id);
   const product = data?.product;
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <LoadingSpinner />;
   return (
     <div className="min-h-screen bg-white py-15 xl:px-20 lg:px-15 md:px-10 px-5 ">
       <BreadCrumbs product={product} />
