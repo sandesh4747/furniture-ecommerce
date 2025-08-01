@@ -11,6 +11,7 @@ import {
   useLowPricedProductQuery,
   useRelevantProductQuery,
 } from "../../features/product/productApi";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 export default function ShopPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,10 +19,14 @@ export default function ShopPage() {
   const [selectFilter, setSelectFilter] = useState("Relevance");
 
   const { data: allData } = useGetAllProductQuery();
-  const { data: latestData } = useLatestProductQuery();
-  const { data: highPricedData } = useHighPricedProductQuery();
-  const { data: relevantData } = useRelevantProductQuery();
-  const { data: lowPricedData } = useLowPricedProductQuery();
+  const { data: latestData, isLoading: isLatestLoading } =
+    useLatestProductQuery();
+  const { data: highPricedData, isLoading: isHighPricedLoading } =
+    useHighPricedProductQuery();
+  const { data: relevantData, isLoading: isRelevantLoading } =
+    useRelevantProductQuery();
+  const { data: lowPricedData, isLoading: isLowPricedLoading } =
+    useLowPricedProductQuery();
 
   const products = useMemo(() => {
     switch (selectFilter) {
@@ -46,6 +51,13 @@ export default function ShopPage() {
   ]);
 
   const totalProducts = products.length;
+  if (
+    isLatestLoading ||
+    isHighPricedLoading ||
+    isRelevantLoading ||
+    isLowPricedLoading
+  )
+    return <LoadingSpinner />;
 
   return (
     <div className="bg-white min-h-screen">
