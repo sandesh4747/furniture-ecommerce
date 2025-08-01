@@ -70,7 +70,11 @@ export default function CartSummary() {
     try {
       await updateCart({ productId, quantity }).unwrap();
       await refetch();
-      toast.success("Added to cart successfully");
+      if (action === "increment") {
+        toast.success("Added to cart successfully");
+      } else if (action === "decrement") {
+        toast.success("Removed from cart successfully");
+      }
     } catch (error) {
       toast.error(error?.data?.message);
     } finally {
