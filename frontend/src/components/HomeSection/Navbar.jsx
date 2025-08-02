@@ -1,13 +1,7 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Heart, ShoppingCart, Search, User } from "lucide-react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import {
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-  Button,
-} from "@material-tailwind/react";
+
 import CartSlider from "../CartSlider/CartSlider";
 import { useDispatch, useSelector } from "react-redux";
 import { useUserLogoutMutation } from "../../pages/Auth-Page/authApi";
@@ -118,6 +112,40 @@ export default function Navbar({ userDropDownOpen, setUserDropDownOpen }) {
     return () => clearTimeout(delayDebounce);
   }, [searchTerm]);
 
+  const navIcons = [
+    {
+      icon: User,
+      onClick: () => {
+        setUserDropDownOpen((prev) => !prev);
+      },
+    },
+    {
+      icon: Search,
+      onClick: () => {
+        setUserDropDownOpen(false);
+        setShowSearch(!showSearch);
+      },
+    },
+    {
+      icon: Heart,
+      onClick: () => {
+        setUserDropDownOpen(false);
+        setIsMobileMenuOpen(false);
+        navigate("/favourites");
+      },
+      badge: favouritesCount,
+    },
+    user && {
+      icon: ShoppingCart,
+      onClick: () => {
+        setUserDropDownOpen(false);
+        setIsMobileMenuOpen(false);
+        setCartSelected(true);
+      },
+      badge: cartCount,
+    },
+  ].filter(Boolean);
+
   return (
     <div className="text-sm text-white w-full fixed top-0 left-0 right-0 z-50 ">
       {/* Main Navbar */}
@@ -156,35 +184,7 @@ export default function Navbar({ userDropDownOpen, setUserDropDownOpen }) {
 
         {/* Desktop Icons */}
         <div className="hidden md:flex items-center space-x-6 ">
-          {[
-            { icon: User, onClick: () => setUserDropDownOpen((prev) => !prev) },
-
-            {
-              icon: Search,
-              onClick: () => {
-                setUserDropDownOpen(false);
-                setShowSearch(!showSearch);
-              },
-            },
-
-            {
-              icon: Heart,
-              onClick: () => {
-                setUserDropDownOpen(false);
-                navigate("/favourites");
-              },
-              badge: favouritesCount,
-            },
-
-            {
-              icon: ShoppingCart,
-              onClick: () => {
-                setUserDropDownOpen(false);
-                setCartSelected(true);
-              },
-              badge: cartCount,
-            },
-          ].map(({ icon: Icon, onClick, badge }, idx) => (
+          {navIcons.map(({ icon: Icon, onClick, badge }, idx) => (
             <div className="relative" key={idx}>
               {" "}
               <button
@@ -316,37 +316,7 @@ export default function Navbar({ userDropDownOpen, setUserDropDownOpen }) {
           </ul>
 
           <div className="flex items-center justify-start space-x-6 mt-6 ">
-            {[
-              {
-                icon: User,
-                onClick: () => setUserDropDownOpen((prev) => !prev),
-              },
-
-              {
-                icon: Search,
-                onClick: () => {
-                  setUserDropDownOpen(false);
-                  setShowSearch(!showSearch);
-                },
-              },
-
-              {
-                icon: Heart,
-                onClick: () => {
-                  setUserDropDownOpen(false);
-                  navigate("/favourites");
-                },
-                badge: favouritesCount,
-              },
-
-              {
-                icon: ShoppingCart,
-                onClick: () => {
-                  setUserDropDownOpen(false);
-                  setCartSelected(true);
-                },
-              },
-            ].map(({ icon: Icon, onClick, badge }, idx) => (
+            {navIcons.map(({ icon: Icon, onClick, badge }, idx) => (
               <div className="relative">
                 <button
                   onClick={onClick}
@@ -410,6 +380,7 @@ export default function Navbar({ userDropDownOpen, setUserDropDownOpen }) {
                           }
 
                           setUserDropDownOpen(false);
+                          setIsMobileMenuOpen(false);
                         }}
                         className="hover:bg-gray-100 px-4 py-2 cursor-pointer"
                       >
@@ -422,6 +393,7 @@ export default function Navbar({ userDropDownOpen, setUserDropDownOpen }) {
                           }
                           navigate("/auth-page");
                           setUserDropDownOpen(false);
+                          setIsMobileMenuOpen(false);
                         }}
                         className="hover:bg-gray-100 px-4 py-2 cursor-pointer"
                       >

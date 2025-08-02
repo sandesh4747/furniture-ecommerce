@@ -12,9 +12,11 @@ import {
 } from "../../features/user/userApi";
 import { toast } from "react-hot-toast";
 import { useAddCartMutation } from "../../features/cart/cartApi";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductOverview({ product, isLoading }) {
   const [addCart, { isLoading: isAdding }] = useAddCartMutation();
+  const navigate = useNavigate();
   const { data, refetch } = useGetMeQuery();
   const user = data?.user;
 
@@ -268,7 +270,10 @@ export default function ProductOverview({ product, isLoading }) {
           {/* Add to Cart Button */}
           <button
             disabled={product?.stock === 0}
-            onClick={handleAddCart}
+            onClick={() => {
+              if (!user) return navigate("/auth-page");
+              handleAddCart();
+            }}
             className={`md:py-5 sm:py-3 py-2 rounded-[10px] flex items-center justify-between px-6 sm:px-10 md:px-12 transition-all duration-200
     ${
       product?.stock === 0
