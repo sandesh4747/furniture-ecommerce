@@ -14,10 +14,11 @@ export default function EditProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading } = useGetSingleProductQuery(id);
+  const { data, isLoading,refetch } = useGetSingleProductQuery(id);
   const [updateProduct, { isLoading: isUpdating }] = useUpdateProductMutation();
 
   const product = data?.product;
+
 
   const [sku, setSku] = useState("");
   const [stock, setStock] = useState("");
@@ -102,7 +103,7 @@ export default function EditProduct() {
         id: product._id,
         formData,
       }).unwrap();
-      console.log("response", response);
+
       navigate("/dashboard/product-list");
       // console.log("response", response);
       toast.success("Product updated successfully");
@@ -127,7 +128,7 @@ export default function EditProduct() {
     return <LoadingSpinner />;
   }
 
-  console.log(inStock, isFeatured);
+ 
   return (
     <div className="flex flex-col w-full ">
       <form className="w-full " onSubmit={handleSubmit}>

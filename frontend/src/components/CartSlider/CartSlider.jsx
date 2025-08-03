@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cartClose from "../../assets/img/cart-close.svg";
 
 import close from "../../assets/img/close.svg";
@@ -7,21 +7,21 @@ import { useGetMeQuery } from "../../features/user/userApi";
 import { useRemoveCartMutation } from "../../features/cart/cartApi";
 import toast from "react-hot-toast";
 import { Loader, Loader2 } from "lucide-react";
+import placeholder from "../../assets/img/placeholder.jpg";
 
 export default function CartSlider({ setCartSelected }) {
-  const { data, refetch } = useGetMeQuery();
+  const { data, refetch: refetchUser } = useGetMeQuery();
   const [removeCart, { isLoading: removeCartLoading }] =
     useRemoveCartMutation();
   const [selectId, setSelectId] = useState(null);
   const user = data?.user;
   const cart = user?.cart;
+  // console.log(cart);
 
-  // const subtotal = cart?.reduce(
-  //   (acc, item) => acc + item?.product?.price * item.quantity,
-  //   0
-  // );
+  const filteredCart = cart?.filter((item) => item?.product);
 
-  const subtotal = cart?.reduce((acc, item) => {
+  const subtotal = filteredCart?.reduce((acc, item) => {
+    if (!item?.product) return acc; // safety check
     const price = item?.product?.discount
       ? (
           item?.product?.price -
@@ -33,11 +33,18 @@ export default function CartSlider({ setCartSelected }) {
 
   const total = subtotal;
 
+  useEffect(() => {
+    const deletedItems = cart?.filter((item) => !item?.product);
+    if (deletedItems?.length) {
+      deletedItems.forEach((item) => handleRemoveCart(item._id));
+    }
+  }, [cart]);
+
   const handleRemoveCart = async (productId) => {
     setSelectId(productId);
     try {
       await removeCart({ productId }).unwrap();
-      await refetch();
+      await refetchUser();
       toast.success("Cart removed successfully");
     } catch (error) {
       toast.error(error?.data?.message);
@@ -103,27 +110,34 @@ export default function CartSlider({ setCartSelected }) {
             <div key={item._id} className="flex items-center justify-between ">
               <div className="rounded-xl h-[90px] w-[90px] sm:h-[105px] sm:w-[105px] p-2 bg-[#FBEBB5] flex-shrink-0">
                 <img
-                  src={item?.product?.images[0]?.url}
-                  alt={item?.product?.name}
+                  src={item?.product?.images[0]?.url || placeholder}
+                  alt={item?.product?.name || "Deleted Product"}
                   className="h-full w-full object-contain"
                 />
               </div>
 
               <div className="flex-1 ml-4 min-w-0">
                 <p className="font-normal text-base truncate">
-                  {item?.product?.name}
+                  {item?.product?.name || "Deleted Product"}
                 </p>
                 <div className="flex gap-2 items-center text-sm text-gray-700">
                   <span>{item?.quantity}</span>
                   <span>x</span>
                   <span className="font-semibold text-[#B88E2F]">
-                    $
-                    {item?.product?.discount
-                      ? (
-                          item?.product?.price -
-                          (item?.product?.price * item?.product?.discount) / 100
-                        ).toFixed(2)
-                      : item?.product?.price?.toFixed(2)}
+                    {item?.product ? (
+                      <span>
+                        $
+                        {item?.product?.discount
+                          ? (
+                              item?.product?.price -
+                              (item?.product?.price * item?.product?.discount) /
+                                100
+                            ).toFixed(2)
+                          : item?.product?.price?.toFixed(2)}
+                      </span>
+                    ) : (
+                      <span className="text-red-500 italic">Removed</span>
+                    )}
                   </span>
                 </div>
               </div>

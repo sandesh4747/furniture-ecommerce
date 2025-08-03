@@ -101,7 +101,7 @@ export const productApi = mainApi.injectEndpoints({
         url: `product/delete/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Product"],
+      invalidatesTags: ["Product", "User"],
     }),
   }),
 });

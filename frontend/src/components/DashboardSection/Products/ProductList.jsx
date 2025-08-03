@@ -48,6 +48,7 @@ export default function ProductList() {
     setDeletingId(id);
     try {
       await deleteProduct(id).unwrap();
+      await refetch();
       toast.success("Product deleted successfully");
       setOpen(false);
     } catch (error) {
