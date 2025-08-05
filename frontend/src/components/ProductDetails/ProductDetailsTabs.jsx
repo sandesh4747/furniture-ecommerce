@@ -346,9 +346,9 @@ export default function ProductDetailsTabs({
                       </div>
                     ) : (
                       <>
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex  items-center gap-3">
-                            <div className="flex items-center justify-center gap-2">
+                        <div className="flex items-center justify-between mb-2 gap-2">
+                          <div className="flex  items-center gap-3  flex-wrap">
+                            <div className="flex items-center  gap-2 flex-wrap">
                               <span>
                                 {" "}
                                 {review?.user?.username || "Anonymous"}

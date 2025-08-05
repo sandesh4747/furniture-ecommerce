@@ -32,7 +32,7 @@ import {
   X,
 } from "lucide-react";
 
-import trentonModularSofa from "../../assets/img/trenton-modular-sofa1.png";
+// import trentonModularSofa from "../../assets/img/trenton-modular-sofa1.png";
 import paypal from "../../assets/img/PayPal.png";
 import mastercard from "../../assets/img/Mastercard.svg";
 import cashOnDelivery from "../../assets/img/cash-on-delivery.png";
@@ -104,7 +104,7 @@ export default function MainDash() {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const totalProducts = 32;
   const [openEdit, setOpenEdit] = useState(false);
-  const orders = data?.orders;
+  const orders = data?.orders?.slice(0, 10);
 
   const totalSales = orders
     ?.reduce((total, order) => total + order.totalAmount, 0)
@@ -294,7 +294,7 @@ export default function MainDash() {
           </thead>
           <tbody>
             {paginatedOrders?.map((item, index) => {
-              const isLast = index === orders?.length - 1;
+              const isLast = index === paginatedOrders?.length - 1;
               const classes = isLast
                 ? "p-4"
                 : "p-4 border-b border-blue-gray-50";

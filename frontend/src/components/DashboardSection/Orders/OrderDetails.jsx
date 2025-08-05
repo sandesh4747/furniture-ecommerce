@@ -22,6 +22,7 @@ import { X } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { useGetSingleOrderQuery } from "../../../features/order/orderApi";
 import { addDays, format } from "date-fns";
+import placeholder from "../../../assets/img/placeholder.jpg";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import autoTable from "jspdf-autotable";
@@ -278,7 +279,7 @@ export default function OrderDetails() {
                     className="flex flex-col sm:flex-row gap-6 pb-6 border-b border-gray-200 last:border-0 last:pb-0"
                   >
                     <img
-                      src={product?.product?.images[0]?.url}
+                      src={product?.product?.images[0]?.url || placeholder}
                       className="w-full sm:w-32 h-32 object-cover rounded-lg"
                       alt={product?.name}
                     />
