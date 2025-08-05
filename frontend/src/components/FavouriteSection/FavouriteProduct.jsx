@@ -23,7 +23,7 @@ export default function FavouriteProduct() {
   const getDiscountedPrice = (price, discount) => {
     return (price - price * (discount / 100)).toFixed(2);
   };
-  console.log(paginatedProducts);
+
   return (
     <div className="min-h-[60vh] ">
       {favouriteProducts && favouriteProducts?.length > 0 ? (

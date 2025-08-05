@@ -27,7 +27,6 @@ export default function ShopPage() {
     useRelevantProductQuery();
   const { data: lowPricedData, isLoading: isLowPricedLoading } =
     useLowPricedProductQuery();
-  console.log(latestData);
 
   const products = useMemo(() => {
     switch (selectFilter) {

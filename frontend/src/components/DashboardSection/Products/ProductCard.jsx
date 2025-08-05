@@ -35,6 +35,7 @@ export default function ProductCard({
       isFeatured: !prev.isFeatured,
     }));
   };
+
   const navigate = useNavigate();
   return (
     <div className=" bg-white  text-sm sm:text-base relative ">
@@ -91,7 +92,7 @@ export default function ProductCard({
         <div>${localProduct?.price}</div>
 
         <div className="text-gray-500 font-medium">Qty:</div>
-        <div>{localProduct?.qty}</div>
+        <div>{localProduct?.stock}</div>
 
         <div className="text-gray-500 font-medium">Status:</div>
         <div>
