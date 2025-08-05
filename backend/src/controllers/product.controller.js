@@ -207,7 +207,9 @@ export const toggleFeaturedProduct = async (req, res) => {
 
 export const getLatestProducts = async (req, res) => {
   try {
-    const products = await Product.find().sort({ createdAt: -1 });
+    const products = await Product.find({ status: "Published" }).sort({
+      createdAt: -1,
+    });
     res.status(200).json({ success: true, products });
   } catch (error) {
     console.log("Error in getLatestProducts controller", error);
@@ -216,7 +218,9 @@ export const getLatestProducts = async (req, res) => {
 };
 export const getHighPricedProducts = async (req, res) => {
   try {
-    const products = await Product.find().sort({ price: -1 });
+    const products = await Product.find({ status: "Published" }).sort({
+      price: -1,
+    });
     res.status(200).json({ success: true, products });
   } catch (error) {
     console.log("Error in getLatestProducts controller", error);
@@ -225,7 +229,9 @@ export const getHighPricedProducts = async (req, res) => {
 };
 export const getLowPricedProducts = async (req, res) => {
   try {
-    const products = await Product.find().sort({ price: 1 });
+    const products = await Product.find({ status: "Published" }).sort({
+      price: 1,
+    });
     res.status(200).json({ success: true, products });
   } catch (error) {
     console.log("Error in getLatestProducts controller", error);
