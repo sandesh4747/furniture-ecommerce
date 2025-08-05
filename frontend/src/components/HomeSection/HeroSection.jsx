@@ -6,7 +6,7 @@ export default function HeroSection() {
   const navigate = useNavigate();
   return (
     <div className="bg-[#FBEBB5] lg:pt-15  pt-20">
-      <div className="flex flex-col lg:flex-row items-center  justify-center gap-10 px-4  lg:pl-20 ">
+      <div className="flex flex-col lg:flex-row items-center  justify-center gap-10 px-4  lg:pl-20 mt-5">
         <div className="text-center lg:text-left">
           <h1 className="font-medium text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[64px] max-w-[440px]">
             Rocket single seater

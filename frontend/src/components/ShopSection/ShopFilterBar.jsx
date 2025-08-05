@@ -14,6 +14,10 @@ export default function ShopFilterBar({
 }) {
   const start = (currentPage - 1) * itemsPerPage + 1;
   const end = Math.min(start + itemsPerPage - 1, totalProducts);
+
+  /*Page 1, itemsPerPage = 8 → (1 - 1) * 8 + 1 = 1 (starts at item 1)
+
+  Page 3, itemsPerPage = 8 → (3 - 1) * 8 + 1 = 17 (starts at item 17) */
   return (
     <div className="border-[#9F9F9F] mt-10 mb-4 bg-[#FAF4F4]  h-[150px] lg:h-[100px]">
       <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:justify-between pl-2  sm:px-6 md:px-8 xl:px-20 h-full">

@@ -164,8 +164,8 @@ export default function BlogSection({
     <div>
       <div className="mt-10 w-full flex flex-col md:flex-row justify-center xl:px-20 md:px-10 px-5 gap-10">
         <div>
-          {paginatedProducts.map((item) => (
-            <div key={item.id} className="w-full max-w-[820px] mt-15">
+          {paginatedProducts?.map((item, i) => (
+            <div key={i} className="w-full max-w-[820px] mt-15">
               <div className="w-full xl:h-[500px] md:h-[400px] h-[300px]">
                 {" "}
                 <img
@@ -176,19 +176,19 @@ export default function BlogSection({
               </div>
               <div className="flex flex-wrap items-center mt-4 gap-5 md:gap-8 text-sm md:text-base">
                 <div className="flex items-center gap-2">
-                  {item.icon.admin}
+                  {item?.icon?.admin}
                   <p className="font-normal text-sm md:text-base text-[#9F9F9F]">
                     {item.userType}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  {item.icon.calender}
+                  {item?.icon?.calender}
                   <p className="font-normal text-sm md:text-base text-[#9F9F9F]">
                     {item.date}
                   </p>
                 </div>
                 <div className="flex items-center flex-wrap gap-2 ">
-                  {item.icon.tag}
+                  {item?.icon?.tag}
                   <p className="font-normal text-sm md:text-base text-[#9F9F9F]">
                     {item.keyword}
                   </p>
@@ -251,8 +251,8 @@ export default function BlogSection({
           </div>
 
           <div>
-            {postList.map((item) => (
-              <div key={item.id} className="flex gap-4 mt-10">
+            {postList.map((item, i) => (
+              <div key={i} className="flex gap-4 mt-10">
                 <img
                   src={item.img}
                   alt=""
