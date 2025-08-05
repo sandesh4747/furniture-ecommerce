@@ -73,8 +73,11 @@ export default function Profile() {
       <div className=" lg:w-full  pt-12 bg-white px-4 pb-4 shadow-lg rounded-sm">
         <div className="flex flex-col items-center">
           <label className="cursor-pointer block w-full h-full ">
-            <div className="flex justify-center">
+            <div className="flex justify-center relative">
               {" "}
+              <div className="absolute  bottom-0 bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600">
+                <FaCamera />
+              </div>{" "}
               {user ? (
                 <img
                   src={user.profilePic?.url || p1}
@@ -84,9 +87,6 @@ export default function Profile() {
               ) : null}
             </div>
 
-            <div className="absolute bottom-0 right-0 bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600">
-              <FaCamera />
-            </div>
             <input
               type="file"
               accept="image/*"
