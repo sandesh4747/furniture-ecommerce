@@ -1,5 +1,6 @@
 import { orderSchema } from "../middleware/validator.js";
 import { Order } from "../models/Order.js";
+import { User } from "../models/User.js";
 
 export const getOrders = async (req, res) => {
   try {
@@ -89,7 +90,14 @@ export const createOrder = async (req, res) => {
     // Save the order
     await newOrder.save();
 
-    // Return success response
+    await User.findByIdAndUpdate(
+      user,
+      {
+        $push: { orders: newOrder._id },
+      },
+      { new: true }
+    );
+
     res.status(201).json({
       success: true,
       message: "Order created successfully",
@@ -201,5 +209,19 @@ export const updateAddress = async (req, res) => {
       success: false,
       message: error.message,
     });
+  }
+};
+
+export const getOrdersByUser = async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user._id })
+      .populate("user", "username email profilePic")
+      .populate("items.product", "name price images discount stock")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ success: true, orders });
+  } catch (error) {
+    console.error("Error in getOrdersByUser", error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };

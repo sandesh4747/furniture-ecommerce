@@ -38,6 +38,7 @@ export default function App() {
 
   const { user } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
+  // console.log(user);
 
   useEffect(() => {
     if (data) {
@@ -106,7 +107,8 @@ export default function App() {
             },
             {
               path: "add-product",
-              element: <AddProduct />,
+              element:
+                user?.role === "admin" ? <AddProduct /> : <Navigate to="/" />,
             },
             {
               path: "product-list",
@@ -114,7 +116,8 @@ export default function App() {
             },
             {
               path: "edit-product/:id",
-              element: <EditProduct />,
+              element:
+                user?.role === "admin" ? <EditProduct /> : <Navigate to="/" />,
             },
             {
               path: "order-list",

@@ -28,7 +28,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useUserLogoutMutation } from "../../pages/Auth-Page/authApi";
 import { setUser } from "../../features/user/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import logo from "../../assets/img/logo.png";
 
@@ -39,6 +39,7 @@ export function Sidebar({ onLinkClick }) {
   const [openOrders, setOpenOrders] = useState(false);
   const [userLogout, { isLoading }] = useUserLogoutMutation();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.userSlice);
 
   const handleLogout = async () => {
     try {
@@ -177,42 +178,44 @@ export function Sidebar({ onLinkClick }) {
               </div>
 
               {/* Products Menu */}
-              <div>
-                <ListItem
-                  className="cursor-pointer"
-                  onClick={() => setOpenProducts(!openProducts)}
-                >
-                  <ListItemPrefix>
-                    <ChevronRightIcon
-                      strokeWidth={3}
-                      className={`h-3 w-5 transition-transform ${
-                        openProducts ? "rotate-90" : ""
-                      }`}
-                    />
-                  </ListItemPrefix>
-                  Products
-                </ListItem>
-                {openProducts && (
-                  <List className="pl-8">
-                    <Link to="/dashboard/add-product">
-                      <ListItem
-                        onClick={onLinkClick}
-                        className="cursor-pointer"
-                      >
-                        Add Product
-                      </ListItem>
-                    </Link>
-                    <Link to="/dashboard/product-list">
-                      <ListItem
-                        onClick={onLinkClick}
-                        className="cursor-pointer"
-                      >
-                        Product List
-                      </ListItem>
-                    </Link>
-                  </List>
-                )}
-              </div>
+              {user?.role === "admin" && (
+                <div>
+                  <ListItem
+                    className="cursor-pointer"
+                    onClick={() => setOpenProducts(!openProducts)}
+                  >
+                    <ListItemPrefix>
+                      <ChevronRightIcon
+                        strokeWidth={3}
+                        className={`h-3 w-5 transition-transform ${
+                          openProducts ? "rotate-90" : ""
+                        }`}
+                      />
+                    </ListItemPrefix>
+                    Products
+                  </ListItem>
+                  {openProducts && (
+                    <List className="pl-8">
+                      <Link to="/dashboard/add-product">
+                        <ListItem
+                          onClick={onLinkClick}
+                          className="cursor-pointer"
+                        >
+                          Add Product
+                        </ListItem>
+                      </Link>
+                      <Link to="/dashboard/product-list">
+                        <ListItem
+                          onClick={onLinkClick}
+                          className="cursor-pointer"
+                        >
+                          Product List
+                        </ListItem>
+                      </Link>
+                    </List>
+                  )}
+                </div>
+              )}
             </List>
           </AccordionBody>
         </Accordion>

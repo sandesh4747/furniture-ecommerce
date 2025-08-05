@@ -301,11 +301,12 @@ export default function OrderDetails() {
                         SubTotal: $
                         {product?.product?.discount
                           ? (
-                              product?.product?.price -
-                              (product?.product?.price *
-                                product?.product?.discount) /
-                                100
-                            ).toFixed(2) * product?.quantity.toFixed(2)
+                              (product?.product?.price -
+                                (product?.product?.price *
+                                  product?.product?.discount) /
+                                  100) *
+                              product?.quantity
+                            ).toFixed(2)
                           : (product?.price * product?.quantity).toFixed(2)}
                       </Typography>
                     </div>

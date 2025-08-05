@@ -41,11 +41,11 @@ export default function OrderCard({
   handleDelete,
 }) {
   const { user } = useSelector((state) => state.userSlice);
-  console.log(user);
+  // console.log(user);
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white rounded-xl space-y-10   gap-y-4 p-4 overflow-x-scroll overflow-y-scroll">
+    <div className="bg-white rounded-xl space-y-10   gap-y-4 p-4 overflow-x-scroll overflow-y-scroll ">
       <h1 className="font-medium text-2xl ">
         Details of {order?.user?.username}
       </h1>

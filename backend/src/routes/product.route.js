@@ -8,6 +8,7 @@ import {
   getHighPricedProducts,
   getLatestProducts,
   getLowPricedProducts,
+  getRecommendedProducts,
   getRelatedProducts,
   getRelevantProducts,
   getSingleProduct,
@@ -27,6 +28,7 @@ router.get("/high-priced-products", getHighPricedProducts);
 router.get("/low-priced-products", getLowPricedProducts);
 router.get("/relevant-products", getRelevantProducts);
 router.get("/featured-products", getFeaturedProducts);
+router.get("/recommended-products", getRecommendedProducts);
 router.get("/related-products/:productId", getRelatedProducts);
 
 router.get("/:id", getSingleProduct);

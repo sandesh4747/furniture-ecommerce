@@ -17,6 +17,13 @@ export const orderApi = mainApi.injectEndpoints({
       }),
       invalidatesTags: ["Order"],
     }),
+    getOrdersByUser: builder.query({
+      query: () => ({
+        url: "order/my-order",
+        method: "GET",
+      }),
+      providesTags: ["Order"],
+    }),
     updateAddress: builder.mutation({
       query: ({ id, shippingAddress }) => ({
         url: `order/${id}/address`,
@@ -48,4 +55,5 @@ export const {
   useDeleteOrderMutation,
   useGetSingleOrderQuery,
   useUpdateAddressMutation,
+  useGetOrdersByUserQuery,
 } = orderApi;

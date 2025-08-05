@@ -293,3 +293,23 @@ export const getRelatedProducts = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const getRecommendedProducts = async (req, res) => {
+  try {
+    const products = await Product.aggregate([
+      { $match: { stock: { $gt: 0 } } }, // only in-stock products
+      { $sample: { size: 4 } }, // pick 4 random products
+    ]);
+
+    res.status(200).json({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};

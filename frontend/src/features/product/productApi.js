@@ -82,6 +82,13 @@ export const productApi = mainApi.injectEndpoints({
       }),
       providesTags: ["Product"],
     }),
+    recommendedProducts: builder.query({
+      query: () => ({
+        url: `product/recommended-products`,
+        method: "GET",
+      }),
+      providesTags: ["Product"],
+    }),
     toggleFeaturedProduct: builder.mutation({
       query: (id) => ({
         url: `product/toggle-feature/${id}`,
@@ -121,4 +128,5 @@ export const {
   useDeleteProductMutation,
   useFeaturedProductQuery,
   useGetSearchResultsQuery,
+  useRecommendedProductsQuery,
 } = productApi;

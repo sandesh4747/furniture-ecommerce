@@ -32,6 +32,7 @@ export const registerSchema = Joi.object({
   }),
   email: loginSchema.extract("email"),
   password: loginSchema.extract("password"),
+  role: Joi.string().valid("user", "admin").optional(),
 });
 
 // Product Schema

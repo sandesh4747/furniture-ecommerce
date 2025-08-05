@@ -5,7 +5,7 @@ import { User } from "../models/User.js";
 // Signup
 export const signup = async (req, res) => {
   try {
-    const { username, email, password, contact, country } =
+    const { username, email, password, contact, country, role } =
       await registerSchema.validateAsync(req.body, { abortEarly: false });
 
     if (!username || !email || !password)
@@ -19,12 +19,17 @@ export const signup = async (req, res) => {
     if (existingUser)
       return res.status(400).json({ message: "Email already exists" });
 
+    if (role === "admin") {
+      return res.status(400).json({ message: "You cannot assign admin role" });
+    }
+
     const user = await User.create({
       email,
       username,
       password,
       contact,
       country,
+      role,
     });
 
     generateTokenAndSetCookie(res, user._id);

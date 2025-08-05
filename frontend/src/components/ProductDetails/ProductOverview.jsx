@@ -108,6 +108,7 @@ export default function ProductOverview({ product, isLoading }) {
   const discountedPrice =
     product?.price - (product?.price * product?.discount) / 100;
 
+  // console.log(user);
   return (
     <div className="flex flex-col xl:flex-row gap-10 mt-15 items-center justify-center xl:items-start ">
       <div className="flex  xl:flex-col xl:items-center gap-3 xl:justify-center">

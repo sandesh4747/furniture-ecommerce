@@ -41,6 +41,12 @@ const userSchema = new mongoose.Schema(
       url: String,
       public_id: String,
     },
+    orders: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order",
+      },
+    ],
     favourites: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -22,7 +22,8 @@ export const getMe = async (req, res) => {
       .populate({
         path: "cart.product",
         select: "name price images discount stock",
-      });
+      })
+      .populate("orders");
     res.status(200).json({ success: true, user });
   } catch (error) {
     console.log("Error in getMe controller", error);

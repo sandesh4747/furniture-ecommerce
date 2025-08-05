@@ -27,6 +27,7 @@ import CustomPagination from "../../ShopSection/Pagination";
 import {
   useDeleteOrderMutation,
   useGetAllOrderQuery,
+  useGetOrdersByUserQuery,
 } from "../../../features/order/orderApi";
 import LoadingSpinner from "../../LoadingSpinner";
 import { useSelector } from "react-redux";
@@ -62,7 +63,15 @@ const status = {
 };
 
 export default function OrderList() {
-  const { data, isLoading } = useGetAllOrderQuery();
+  const { user } = useSelector((state) => state.userSlice);
+  const isAdmin = user?.role === "admin";
+  const { data: adminOrdersData, isLoading: adminLoading } =
+    useGetAllOrderQuery();
+  const { data: userOrdersData, isLoading: userLoading } =
+    useGetOrdersByUserQuery();
+
+  const data = isAdmin ? adminOrdersData : userOrdersData;
+  const isLoading = isAdmin ? adminLoading : userLoading;
   const [deleteOrder] = useDeleteOrderMutation();
   const orders = data?.orders;
 
@@ -120,7 +129,7 @@ export default function OrderList() {
           <Button
             color="blue"
             onClick={() => navigate("/shop")}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 mt-2"
           >
             <PlusCircle size={18} /> Browse Product
           </Button>
